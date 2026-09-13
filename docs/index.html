@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FKey — Corrigez vos textes d'une touche, 100 % local</title>
-<meta name="description" content="FKey corrige, améliore et traduit vos textes dans n'importe quelle application Windows, d'une simple touche. Tout se passe sur votre ordinateur : rien n'est envoyé sur internet.">
-<meta property="og:title" content="FKey — Corrigez vos textes d'une touche, 100 % local">
-<meta property="og:description" content="Sélectionnez un texte, appuyez sur F2. Corrigé sur place, sans internet, sans compte.">
-<meta property="og:image" content="assets/logo-512.png">
+<title>FKey — Corrigez vos textes d'une touche, sans internet</title>
+<meta name="description" content="FKey corrige, améliore et traduit vos textes dans n'importe quelle application Windows, d'une simple touche. Tout se passe sur votre ordinateur.">
+<meta property="og:title" content="FKey — Corrigez vos textes d'une touche, sans internet">
+<meta property="og:description" content="Sélectionnez un texte, appuyez sur F2. Corrigé sur place, 100 % local.">
+<meta property="og:image" content="https://knulp222.github.io/fkey/assets/logo-512.png">
 <link rel="icon" href="assets/favicon.ico">
 <link rel="apple-touch-icon" href="assets/logo-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,120 +17,90 @@
     --bg:#F4F5F9; --surface:#fff; --border:#E3E5EC; --border-strong:#CBD0DC;
     --text:#14161C; --muted:#6A7080; --faint:#9AA0AE;
     --accent:#2F63F0; --accent-hover:#2452D6; --accent-soft:#EAF0FF; --accent-text:#2452D6;
-    --success:#1E9E5A; --success-soft:#E4F5EB; --warn:#B8791E; --warn-soft:#FFF3DC;
+    --success:#1E9E5A; --success-soft:#E4F5EB; --danger:#D63C5E; --danger-soft:#FDE8EC;
     --radius:14px;
   }
   *{box-sizing:border-box;min-width:0}
-  img{max-width:100%;height:auto}
-  body{overflow-x:hidden}
+  img{max-width:100%;height:auto;display:block}
   html{scroll-behavior:smooth}
-  body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{color:var(--accent-text);text-decoration:none}
-  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+  kbd{display:inline-block;padding:3px 9px;border:1px solid var(--border-strong);border-bottom-width:3px;border-radius:8px;background:#fff;font:600 13px Inter,system-ui;color:var(--text);min-width:34px;text-align:center;vertical-align:middle}
 
-  /* nav */
   .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
   .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;color:var(--text)}
   .brand img{width:34px;height:34px}
-  .nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0}
+  .nav ul{display:flex;gap:24px;list-style:none;margin:0;padding:0;align-items:center}
   .nav ul a{color:var(--muted);font-weight:500;font-size:15px}
   .nav ul a:hover{color:var(--text)}
-  .nav ul a.btn{color:#fff}
-  .nav ul a.btn:hover{color:#fff}
-  @media (max-width:640px){.nav ul{display:none}}
+  .nav ul a.btn,.nav ul a.btn:hover{color:#fff}
+  @media (max-width:640px){.nav ul li:not(:last-child){display:none}}
 
-  /* buttons */
-  .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:12px;font-weight:600;font-size:16px;border:1px solid transparent;transition:.15s;cursor:pointer}
-  .btn-primary{background:var(--accent);color:#fff;box-shadow:0 8px 24px rgba(47,99,240,.28)}
+  .btn{display:inline-flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:12px 22px;border-radius:12px;font-weight:600;font-size:16px;line-height:1.2;border:1px solid transparent;transition:.15s;cursor:pointer}
+  .btn small{font-weight:400;font-size:12px;opacity:.85;margin-top:2px}
+  .btn-primary{background:var(--accent);color:#fff;box-shadow:0 8px 24px rgba(47,99,240,.25)}
   .btn-primary:hover{background:var(--accent-hover);transform:translateY(-1px)}
-  .btn-secondary{background:var(--surface);color:var(--text);border-color:var(--border-strong)}
-  .btn-secondary:hover{background:#F3F4F9}
-  .btn small{display:block;font-weight:400;font-size:12px;opacity:.85}
-  .btn-big{flex-direction:column;align-items:flex-start;gap:2px;line-height:1.2}
+  .btn-sm{padding:9px 16px;font-size:14px}
 
-  /* hero */
-  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:56px 0 40px}
-  .hero h1{font-size:clamp(34px,5vw,54px);line-height:1.08;letter-spacing:-.02em;margin:0 0 18px;font-weight:800}
+  .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:32px;align-items:center;padding:44px 0 36px}
+  .hero h1{font-size:clamp(34px,5vw,52px);line-height:1.08;letter-spacing:-.02em;margin:0 0 16px;font-weight:800}
   .hero h1 em{font-style:normal;color:var(--accent)}
-  .hero p{font-size:19px;color:var(--muted);margin:0 0 28px;max-width:520px}
-  .hero-cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-  .hero-meta{margin-top:14px;font-size:13px;color:var(--faint)}
-  .hero-art{position:relative;display:flex;justify-content:center}
-  .hero-art img{width:min(100%,380px);filter:drop-shadow(0 30px 50px rgba(47,99,240,.25))}
-  @media (max-width:820px){.hero{grid-template-columns:1fr;text-align:center}.hero h1 br{display:none}.hero p{margin-inline:auto}.hero-cta{justify-content:center}.hero-art img{width:240px}}
+  .hero p{font-size:18px;color:var(--muted);margin:0 0 24px;max-width:480px}
+  .hero-meta{margin-top:12px;font-size:13px;color:var(--faint)}
+  .hero-art img{width:min(100%,340px);margin:0 auto;filter:drop-shadow(0 30px 50px rgba(47,99,240,.25))}
+  @media (max-width:820px){.hero{grid-template-columns:1fr;text-align:center}.hero h1 br{display:none}.hero p{margin-inline:auto}.hero-art img{width:200px}}
 
-  /* demo strip */
-  .demo{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px 26px;display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center;margin:8px 0 60px}
-  .demo .txt{font-size:17px}
-  .demo .before{color:var(--muted)}
-  .demo .before s{color:#D63C5E;text-decoration-color:rgba(214,60,94,.6)}
-  .demo .after b{color:var(--success);font-weight:600}
-  .demo .key{justify-self:center;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--faint);font-size:12px}
-  @media (max-width:820px){.demo{grid-template-columns:1fr;text-align:center}}
-  kbd{display:inline-block;padding:4px 10px;border:1px solid var(--border-strong);border-bottom-width:3px;border-radius:8px;background:#fff;font:600 13px Inter,system-ui;color:var(--text);min-width:36px;text-align:center}
+  .demo{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;margin:0 0 64px}
+  .shot{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:0}
+  .shot figcaption{padding:10px 14px;font-size:13px;color:var(--muted);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .tag{font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap}
+  .tag.before{background:var(--danger-soft);color:var(--danger)}
+  .tag.after{background:var(--success-soft);color:var(--success)}
+  .demo .mid{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--muted);font-size:13px;text-align:center}
+  .demo .mid .arrow{font-size:26px;color:var(--accent);line-height:1}
+  @media (max-width:820px){.demo{grid-template-columns:1fr}.demo .mid .arrow{transform:rotate(90deg)}}
 
-  /* sections */
-  section{padding:28px 0 56px}
-  .eyebrow{color:var(--accent-text);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin:0 0 8px}
-  h2{font-size:32px;letter-spacing:-.02em;margin:0 0 10px;font-weight:800}
-  .lead{color:var(--muted);font-size:17px;margin:0 0 30px;max-width:640px}
-  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-  @media (max-width:820px){.grid3,.grid2{grid-template-columns:1fr}}
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px}
-  .card h3{margin:10px 0 6px;font-size:17px;font-weight:600}
-  .card p{margin:0;color:var(--muted);font-size:15px}
-  .ico{width:42px;height:42px;border-radius:11px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:20px}
+  section{padding:0 0 64px}
+  h2{font-size:28px;letter-spacing:-.02em;margin:0 0 24px;font-weight:800}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media (max-width:820px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px}
+  .step .n{width:28px;height:28px;border-radius:50%;background:var(--accent-soft);color:var(--accent-text);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+  .step h3{margin:0 0 4px;font-size:16px;font-weight:600}
+  .step p{margin:0;color:var(--muted);font-size:14px}
+  .keys{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:20px;color:var(--muted);font-size:14px}
+  .keys span{display:inline-flex;align-items:center;gap:8px}
+  .keys b{color:var(--text);font-weight:600}
 
-  .keys{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-  @media (max-width:820px){.keys{grid-template-columns:repeat(2,1fr)}}
-  .keys .card{display:flex;flex-direction:column;gap:6px}
-  .keys kbd{font-size:16px;padding:8px 14px;align-self:flex-start}
-  .keys b{font-weight:600}
+  .app{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:center}
+  @media (max-width:820px){.app{grid-template-columns:1fr}}
+  .app ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px}
+  .app li{padding-left:18px;position:relative;color:var(--muted);font-size:15px}
+  .app li::before{content:"";position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .app li b{display:block;color:var(--text);font-weight:600;margin-bottom:2px}
 
-  .shots{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;align-items:start}
-  @media (max-width:820px){.shots{grid-template-columns:1fr}}
-  .shot{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-  .shot img{display:block;width:100%}
-  .shot figcaption{padding:12px 16px;font-size:13px;color:var(--muted);border-top:1px solid var(--border)}
-
-  /* download */
-  .download{background:linear-gradient(135deg,#2F63F0,#5B8CFF);color:#fff;border-radius:20px;padding:44px 40px;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
-  @media (max-width:820px){.download{grid-template-columns:1fr;padding:32px 24px}}
-  .download h2{color:#fff}
-  .download p{color:rgba(255,255,255,.85);margin:0 0 22px}
+  .download{background:linear-gradient(135deg,#2F63F0,#5B8CFF);color:#fff;border-radius:20px;padding:40px;display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
+  @media (max-width:820px){.download{grid-template-columns:1fr;padding:28px 22px}}
+  .download h2{color:#fff;margin-bottom:8px}
+  .download p{color:rgba(255,255,255,.85);margin:0 0 20px;font-size:15px}
   .download .btn-primary{background:#fff;color:var(--accent-text);box-shadow:0 10px 30px rgba(0,0,0,.18)}
   .download .btn-primary:hover{background:#F3F6FF}
-  .steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
-  .steps li{display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,.95)}
-  .steps span{flex:none;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600}
-  .req{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-  .req span{background:rgba(255,255,255,.16);border-radius:999px;padding:5px 12px;font-size:13px}
+  .download ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;font-size:15px}
+  .download ol li{display:flex;gap:12px;align-items:flex-start;line-height:1.4}
+  .download ol li i{flex:none;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px;font-weight:700;margin-top:1px}
+  .download ol li kbd{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.15);color:#fff}
+  .req{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .req span{background:rgba(255,255,255,.16);border-radius:999px;padding:4px 11px;font-size:12px}
 
-  details{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:10px}
-  summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  details{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:8px}
+  summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center;font-size:15px}
   summary::after{content:"+";color:var(--faint);font-size:20px}
   details[open] summary::after{content:"–"}
-  details p{color:var(--muted);margin:10px 0 0;font-size:15px}
+  details p{color:var(--muted);margin:8px 0 0;font-size:14px}
 
-  .ba{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;margin:8px 0 60px}
-  .ba .shot img{width:100%}
-  .ba .mid{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:13px;text-align:center}
-  .ba .mid .arrow{font-size:26px;color:var(--accent)}
-  .ba .tag{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px}
-  .ba .tag.before{background:#FDE8EC;color:#D63C5E}
-  .ba .tag.after{background:var(--success-soft);color:var(--success)}
-  .ba figcaption{display:flex;justify-content:space-between;align-items:center}
-  @media (max-width:820px){.ba{grid-template-columns:1fr}.ba .mid .arrow{transform:rotate(90deg)}}
-  .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-  @media (max-width:820px){.gallery{grid-template-columns:repeat(2,1fr)}}
-  .gallery .shot figcaption{padding:8px 12px;font-size:12px}
-  .shot img{cursor:zoom-in}
-  .lightbox{position:fixed;inset:0;background:rgba(20,22,28,.82);display:none;align-items:center;justify-content:center;padding:24px;z-index:50;cursor:zoom-out}
-  .lightbox.open{display:flex}
-  .lightbox img{max-width:min(1100px,100%);max-height:100%;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
-  footer{border-top:1px solid var(--border);padding:28px 0 40px;color:var(--faint);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-  .badge{display:inline-block;background:var(--success-soft);color:var(--success);font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;vertical-align:middle;margin-left:8px}
+  footer{border-top:1px solid var(--border);padding:24px 0 36px;color:var(--faint);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .badge{display:inline-block;background:rgba(255,255,255,.22);color:#fff;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;vertical-align:middle;margin-left:8px}
 </style>
 </head>
 <body>
@@ -138,76 +108,53 @@
   <nav class="nav">
     <a class="brand" href="#"><img src="assets/logo-192.png" alt="">FKey</a>
     <ul>
-      <li><a href="#fonctions">Fonctions</a></li>
-      <li><a href="#raccourcis">Raccourcis</a></li>
-      <li><a href="#confidentialite">Confidentialité</a></li>
+      <li><a href="#comment">Comment ça marche</a></li>
+      <li><a href="#app">L'application</a></li>
       <li><a href="#faq">FAQ</a></li>
-      <li><a href="#telecharger" class="btn btn-primary" style="padding:9px 16px;font-size:14px">Télécharger</a></li>
+      <li><a href="#telecharger" class="btn btn-primary btn-sm">Télécharger</a></li>
     </ul>
   </nav>
 
   <header class="hero">
     <div>
       <h1>Corrigez vos textes <em>d'une touche</em>.<br>Sans internet.</h1>
-      <p>Sélectionnez un texte dans Word, Outlook, votre navigateur… appuyez sur <kbd>F2</kbd>. Il est corrigé sur place. Un modèle d'IA tourne sur votre ordinateur : rien ne part sur internet.</p>
-      <div class="hero-cta">
-        <a class="btn btn-primary btn-big" href="#telecharger">Télécharger pour Windows <small>gratuit · sans installation · sans compte</small></a>
-        <a class="btn btn-secondary" href="#fonctions">Comment ça marche</a>
-      </div>
+      <p>Sélectionnez un texte dans Word, Outlook ou votre navigateur, appuyez sur <kbd>F2</kbd> : il est corrigé sur place. L'IA tourne sur votre ordinateur, rien ne part sur internet.</p>
+      <a class="btn btn-primary" href="#telecharger">Télécharger pour Windows <small>gratuit · sans installation · sans compte</small></a>
       <div class="hero-meta">Windows 10 / 11 · 64 bits · aucun droit administrateur</div>
     </div>
-    <div class="hero-art"><img src="assets/logo-512.png" alt="Logo FKey : une touche de clavier F"></div>
+    <div class="hero-art"><img src="assets/logo-512.png" alt="Logo FKey"></div>
   </header>
 
-  <div class="ba">
-    <figure class="shot" style="margin:0"><img src="assets/shot-notepad_before.png" alt="Bloc-notes avant correction : texte avec six fautes"><figcaption><span>Bloc-notes — texte d'origine</span><span class="tag before">6 fautes</span></figcaption></figure>
-    <div class="mid"><kbd>F2</kbd><span class="arrow">→</span><span>3,7 s plus tard,<br>sur un portable sans carte graphique</span></div>
-    <figure class="shot" style="margin:0"><img src="assets/shot-notepad_after.png" alt="Bloc-notes après correction par FKey"><figcaption><span>Même fenêtre, après FKey</span><span class="tag after">Corrigé sur place</span></figcaption></figure>
+  <div class="demo">
+    <figure class="shot"><img src="assets/shot-word_before.png" alt="Word, texte avec fautes"><figcaption><span>Word — texte d'origine</span><span class="tag before">6 fautes</span></figcaption></figure>
+    <div class="mid"><kbd>F2</kbd><span class="arrow">→</span><span>4 secondes</span></div>
+    <figure class="shot"><img src="assets/shot-word_after.png" alt="Word, texte corrigé par FKey"><figcaption><span>Même document, après FKey</span><span class="tag after">Corrigé</span></figcaption></figure>
   </div>
 
-  <section id="fonctions">
-    <p class="eyebrow">Pourquoi FKey</p>
-    <h2>Un correcteur qui vit dans votre clavier</h2>
-    <p class="lead">Pas de fenêtre à ouvrir, pas de copier-coller vers un site. FKey attend dans la zone de notification et agit là où vous écrivez.</p>
-    <div class="grid3">
-      <div class="card"><div class="ico">⌨️</div><h3>Une touche, partout</h3><p>Fonctionne dans toutes les applications où l'on peut sélectionner du texte : bureautique, mail, navigateur, messagerie.</p></div>
-      <div class="card"><div class="ico">🔒</div><h3>100 % privé</h3><p>Le modèle de langue tourne sur votre machine. Vos textes ne quittent jamais l'ordinateur. Fonctionne hors connexion.</p></div>
-      <div class="card"><div class="ico">⚡</div><h3>Rapide</h3><p>Environ une seconde par phrase sur un portable récent, sans carte graphique dédiée. Le modèle reste chargé, prêt à répondre.</p></div>
+  <section id="comment">
+    <h2>Comment ça marche</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Lancez FKey</h3><p>Il attend dans la zone de notification, près de l'horloge.</p></div>
+      <div class="step"><div class="n">2</div><h3>Sélectionnez un texte</h3><p>Dans n'importe quelle application : un mot, une phrase, un mail entier.</p></div>
+      <div class="step"><div class="n">3</div><h3>Appuyez sur une touche</h3><p>Le texte est remplacé par le résultat. Le presse-papiers est préservé.</p></div>
     </div>
-  </section>
-
-  <section id="raccourcis">
-    <p class="eyebrow">Raccourcis</p>
-    <h2>Quatre touches, quatre actions</h2>
-    <p class="lead">Les touches se personnalisent dans les réglages. La langue de traduction aussi.</p>
     <div class="keys">
-      <div class="card"><kbd>F2</kbd><b>Corriger</b><p>Orthographe, grammaire, accords. Le sens et le ton sont conservés.</p></div>
-      <div class="card"><kbd>F3</kbd><b>Améliorer</b><p>Style, fluidité et clarté, sans changer le message.</p></div>
-      <div class="card"><kbd>F4</kbd><b>Traduire</b><p>Vers la langue de votre choix : anglais, espagnol, allemand, japonais…</p></div>
-      <div class="card"><kbd>F6</kbd><b>Instruction libre</b><p>« Rends ce texte plus formel », « Résume en 3 points », « Tutoie »…</p></div>
+      <span><kbd>F2</kbd><b>Corriger</b> orthographe, grammaire</span>
+      <span><kbd>F3</kbd><b>Améliorer</b> style, fluidité</span>
+      <span><kbd>F4</kbd><b>Traduire</b> langue au choix</span>
+      <span><kbd>F6</kbd><b>Instruction libre</b> « Rends ce texte plus formel »</span>
     </div>
   </section>
 
-  <section>
-    <p class="eyebrow">L'application</p>
-    <h2>Simple, claire, guidée</h2>
-    <p class="lead">Un assistant vous accompagne au premier lancement : choix du modèle, téléchargement, c'est prêt. Ensuite, FKey se fait oublier.</p>
-    <div class="gallery">
-      <figure class="shot" style="margin:0"><img src="assets/shot-onb1.png" alt="Premier lancement : bienvenue"><figcaption>1 · Bienvenue</figcaption></figure>
-      <figure class="shot" style="margin:0"><img src="assets/shot-onb2.png" alt="Premier lancement : choix du modèle"><figcaption>2 · Choix du modèle</figcaption></figure>
-      <figure class="shot" style="margin:0"><img src="assets/shot-onb3.png" alt="Premier lancement : téléchargement"><figcaption>3 · Téléchargement</figcaption></figure>
-      <figure class="shot" style="margin:0"><img src="assets/shot-onb4.png" alt="Premier lancement : prêt"><figcaption>4 · Prêt</figcaption></figure>
-    </div>
-    <div class="shots">
-      <figure class="shot" style="margin:0"><img src="assets/shot-home.png" alt="Fenêtre principale de FKey"><figcaption>Accueil — statut du modèle, raccourcis, zone d'essai</figcaption></figure>
-      <div style="display:flex;flex-direction:column;gap:16px">
-        <figure class="shot" style="margin:0"><img src="assets/shot-keys.png" alt="Réglage des raccourcis"><figcaption>Raccourcis — cliquez sur une touche pour la changer</figcaption></figure>
-        <figure class="shot" style="margin:0"><img src="assets/shot-prompt.png" alt="Fenêtre instruction libre"><figcaption>Instruction libre (F6)</figcaption></figure>
-      </div>
-    </div>
-    <div class="grid2" style="margin-top:16px">
-      <figure class="shot" style="margin:0"><img src="assets/shot-model.png" alt="Page Modèle"><figcaption>Modèle — changez ou ajoutez un modèle à tout moment</figcaption></figure>
-      <figure class="shot" style="margin:0"><img src="assets/shot-general.png" alt="Page Réglages"><figcaption>Réglages — démarrage automatique, préchargement, notifications</figcaption></figure>
+  <section id="app">
+    <h2>L'application</h2>
+    <div class="app">
+      <figure class="shot"><img src="assets/shot-home.png" alt="Fenêtre principale de FKey"></figure>
+      <ul>
+        <li><b>Prêt en deux minutes</b>Au premier lancement, un assistant télécharge le modèle recommandé (≈ 3 Go, une seule fois).</li>
+        <li><b>Réglable</b>Touches, langue de traduction, modèle, lancement avec Windows.</li>
+        <li><b>100 % privé</b>Pas de compte, pas de serveur. Vos textes ne quittent jamais l'ordinateur ; fonctionne hors ligne.</li>
+      </ul>
     </div>
   </section>
 
@@ -215,51 +162,30 @@
     <div class="download">
       <div>
         <h2>Télécharger FKey <span class="badge">v1.0</span></h2>
-        <p>Archive portable pour Windows. Décompressez, lancez, c'est tout. Le modèle (≈ 3 Go) se télécharge au premier lancement.</p>
-        <a class="btn btn-primary btn-big" href="https://github.com/knulp222/fkey/releases/latest/download/FKey-portable.zip">⬇ &nbsp;FKey-portable.zip <small>≈ 37 Mo · Windows 10/11 64 bits</small></a>
-        <div class="req"><span>Sans installation</span><span>Sans droits admin</span><span>8 Go de RAM recommandés</span><span>4 Go d'espace disque</span></div>
+        <p>Archive portable : décompressez, lancez, c'est tout.</p>
+        <a class="btn btn-primary" href="https://github.com/knulp222/fkey/releases/latest/download/FKey-portable.zip">⬇ &nbsp;FKey-portable.zip <small>37 Mo · Windows 10/11 64 bits</small></a>
+        <div class="req"><span>Sans installation</span><span>Sans droits admin</span><span>8 Go de RAM recommandés</span><span>4 Go de disque</span></div>
       </div>
-      <ol class="steps">
-        <li><span>1</span>Décompressez le dossier où vous voulez (Documents, clé USB…)</li>
-        <li><span>2</span><span style="width:auto;height:auto;background:none;display:inline">Lancez <b>FKey.exe</b> — l'assistant télécharge le modèle recommandé</span></li>
-        <li><span>3</span>Sélectionnez un texte, appuyez sur <kbd style="border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.15);color:#fff">F2</kbd></li>
+      <ol>
+        <li><i>1</i><span>Décompressez le dossier où vous voulez.</span></li>
+        <li><i>2</i><span>Lancez FKey.exe et suivez l'assistant.</span></li>
+        <li><i>3</i><span>Sélectionnez un texte, appuyez sur <kbd>F2</kbd>.</span></li>
       </ol>
     </div>
   </section>
 
-  <section id="confidentialite">
-    <p class="eyebrow">Confidentialité</p>
-    <h2>Vos textes restent chez vous</h2>
-    <div class="grid2">
-      <div class="card"><h3>Aucune donnée envoyée</h3><p>FKey n'a pas de serveur. Le seul accès internet est le téléchargement du modèle, à votre demande, depuis Hugging Face et GitHub.</p></div>
-      <div class="card"><h3>Aucun compte, aucun suivi</h3><p>Pas d'inscription, pas de clé API, pas de statistiques d'usage. Le dossier de l'application contient tout ; supprimez-le pour désinstaller.</p></div>
-      <div class="card"><h3>Comment ça marche</h3><p>FKey simule Ctrl+C / Ctrl+V dans l'application active. Le texte est traité par <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a> avec un modèle ouvert (Gemma 4 ou Luth-2).</p></div>
-      <div class="card"><h3>Code ouvert</h3><p>Le code source est publié sur <a href="https://github.com/knulp222/fkey">GitHub</a>. Vous pouvez le lire, le compiler et le modifier.</p></div>
-    </div>
-  </section>
-
   <section id="faq">
-    <p class="eyebrow">FAQ</p>
     <h2>Questions fréquentes</h2>
-    <details><summary>Quelle configuration faut-il ?</summary><p>Windows 10 ou 11 en 64 bits, 8 Go de mémoire vive recommandés (le modèle en occupe environ 2,7 Go lorsqu'il est chargé) et 4 Go d'espace disque. Aucune carte graphique n'est nécessaire.</p></details>
-    <details><summary>Est-ce que ça marche sans internet ?</summary><p>Oui. Une connexion n'est nécessaire qu'une seule fois pour télécharger le modèle. Ensuite, tout fonctionne hors ligne.</p></details>
-    <details><summary>Quelle est la qualité de la correction ?</summary><p>Le modèle recommandé (Gemma 4 E2B) corrige orthographe, grammaire et accords en français comme en anglais, y compris les homophones classiques (on/ont, ce/se, c'est/s'est…). Un modèle plus léger est proposé pour les ordinateurs avec peu de mémoire.</p></details>
-    <details><summary>Windows affiche un avertissement au lancement</summary><p>FKey n'est pas encore signé numériquement. Cliquez sur « Informations complémentaires » puis « Exécuter quand même ». Le code source est public si vous souhaitez le vérifier ou compiler vous-même.</p></details>
-    <details><summary>Un raccourci ne répond plus</summary><p>Ouvrez FKey depuis la zone de notification, puis Réglages › « Réactiver les raccourcis ». Cela arrive parfois après une mise en veille.</p></details>
-    <details><summary>Comment désinstaller ?</summary><p>Quittez FKey depuis le menu de la zone de notification, puis supprimez le dossier. Si le démarrage automatique était activé, supprimez aussi le raccourci FKey.vbs dans le dossier Démarrage de votre session (indiqué dans le fichier LISEZMOI).</p></details>
+    <details><summary>Quelle configuration faut-il ?</summary><p>Windows 10 ou 11 en 64 bits, 8 Go de mémoire vive recommandés (le modèle en occupe environ 2,7 Go) et 4 Go d'espace disque. Pas de carte graphique nécessaire.</p></details>
+    <details><summary>Ça marche vraiment sans internet ?</summary><p>Oui. Une connexion n'est nécessaire qu'une fois, pour télécharger le modèle. Ensuite tout fonctionne hors ligne.</p></details>
+    <details><summary>Windows affiche un avertissement au lancement</summary><p>FKey n'est pas encore signé numériquement. Cliquez sur « Informations complémentaires » puis « Exécuter quand même ». Le <a href="https://github.com/knulp222/fkey">code source</a> est public.</p></details>
+    <details><summary>Comment désinstaller ?</summary><p>Quittez FKey depuis la zone de notification et supprimez le dossier. Si le lancement automatique était activé, désactivez-le d'abord dans Réglages.</p></details>
   </section>
 
   <footer>
     <div>FKey · correcteur de texte local pour Windows</div>
-    <div>Moteur llama.cpp (MIT) · Modèles Gemma 4 (Google) et Luth-2 (Kurakura AI, Apache 2.0) · <a href="https://github.com/knulp222/fkey">Code source</a></div>
+    <div>Moteur llama.cpp · modèles Gemma 4 et Luth-2 · <a href="https://github.com/knulp222/fkey">Code source</a></div>
   </footer>
 </div>
-<div class="lightbox" id="lb" onclick="this.classList.remove('open')"><img id="lbimg" alt=""></div>
-<script>
-  document.querySelectorAll('.shot img').forEach(function(img){
-    img.addEventListener('click', function(){ document.getElementById('lbimg').src = img.src; document.getElementById('lb').classList.add('open'); });
-  });
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') document.getElementById('lb').classList.remove('open'); });
-</script>
 </body>
 </html>

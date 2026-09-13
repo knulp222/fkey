@@ -171,19 +171,40 @@ def _ctrl(k):
     controller.press(kb.Key.ctrl); controller.press(k)
     controller.release(k); controller.release(kb.Key.ctrl)
 
+def _clip_wait(timeout=1.2):
+    """Attend que l'application ait rempli le presse-papiers (Word met parfois
+    plusieurs centaines de ms à poser ses formats, le Bloc-notes quelques ms)."""
+    t0 = time.time()
+    while time.time() - t0 < timeout:
+        try:
+            r = pyperclip.paste()
+        except Exception:
+            r = ''
+        if r:
+            return r
+        time.sleep(0.03)
+    return ''
+
 def _get_selected():
     s = pyperclip.paste(); pyperclip.copy('')
-    _ctrl('c'); time.sleep(0.07)
-    r = pyperclip.paste()
+    _ctrl('c')
+    r = _clip_wait(0.6)
     if not r: pyperclip.copy(s)
     return r
 
 def _get_all():
     s = pyperclip.paste(); pyperclip.copy('')
-    _ctrl('a'); time.sleep(0.04); _ctrl('c'); time.sleep(0.07)
-    r = pyperclip.paste()
+    _ctrl('a'); time.sleep(0.05); _ctrl('c')
+    r = _clip_wait()
     if not r: pyperclip.copy(s)
     return r
+
+def _paste_then_restore(text, original):
+    """Colle le résultat, puis rend son presse-papiers à l'utilisateur — mais
+    seulement une fois que l'application a eu le temps de lire le nôtre."""
+    pyperclip.copy(text); _ctrl('v')
+    time.sleep(0.6)
+    pyperclip.copy(original)
 
 def run_instruction(instruction, text):
     """Applique l'instruction au texte via le moteur local. Renvoie le texte ou None."""
@@ -217,7 +238,7 @@ def run_free(prompt, original):
     finally:
         _state['busy'] = False; _emit()
     if r:
-        pyperclip.copy(r); _ctrl('v'); time.sleep(0.07); pyperclip.copy(original)
+        _paste_then_restore(r, original)
         notify(f'✓ Terminé en {_state["last_ms"]/1000:.1f} s')
     else:
         pyperclip.copy(original); notify('✗ Échec du traitement')
@@ -227,8 +248,7 @@ def _process(instruction, text, original):
         pyperclip.copy(original); notify('Aucun texte sélectionné'); return
     r = run_instruction(instruction, text)
     if r:
-        pyperclip.copy(r); _ctrl('v'); time.sleep(0.07)
-        pyperclip.copy(original)
+        _paste_then_restore(r, original)
         notify(f'✓ Terminé en {_state["last_ms"]/1000:.1f} s')
     else:
         pyperclip.copy(original)
@@ -264,16 +284,37 @@ def _to_pynput(key_str):
     if len(key_str) == 1: return kb.KeyCode.from_char(key_str)
     return None
 
-_hotkey_map = {}
+_hotkey_map = {}     # touche pynput -> action (touches sans code virtuel, ex. lettres)
+_hotkey_vks = {}     # code virtuel Windows -> action (touches F1-F12, Échap, etc.)
+_WM_KEYDOWN, _WM_SYSKEYDOWN = 0x0100, 0x0104
+
 def _on_press(key):
     act = _hotkey_map.get(key)
     if act: ACTIONS[act]()
 
+def _win32_filter(msg, data):
+    """Filtre bas niveau : FKey consomme ses raccourcis pour qu'ils n'atteignent
+    pas l'application active. Indispensable : dans Word, F2 est une commande
+    native (« déplacer le texte ») qui passe en mode modal et avale le collage."""
+    act = _hotkey_vks.get(data.vkCode)
+    if act is None:
+        return True
+    if msg in (_WM_KEYDOWN, _WM_SYSKEYDOWN):
+        ACTIONS[act]()
+    kb_listener.suppress_event()
+
 def start_listener():
-    global kb_listener, _hotkey_map
-    _hotkey_map = {pk: a for a, k in config['shortcuts'].items() if (pk := _to_pynput(k))}
+    global kb_listener, _hotkey_map, _hotkey_vks
+    _hotkey_map, _hotkey_vks = {}, {}
+    for action, key_str in config['shortcuts'].items():
+        pk = _to_pynput(key_str)
+        if not pk: continue
+        vk = getattr(getattr(pk, 'value', pk), 'vk', None)
+        if vk: _hotkey_vks[vk] = action
+        else:  _hotkey_map[pk] = action
     if kb_listener and kb_listener.is_alive(): kb_listener.stop()
-    kb_listener = kb.Listener(on_press=_on_press); kb_listener.daemon = True; kb_listener.start()
+    kb_listener = kb.Listener(on_press=_on_press, win32_event_filter=_win32_filter)
+    kb_listener.daemon = True; kb_listener.start()
 
 # ─── Démarrage Windows (sans droits admin : dossier Startup de l'utilisateur) ──
 def _startup_path():

@@ -23,7 +23,7 @@ import ui
 from ui import C, F, Label, Button, Card, Badge, Toggle, ProgressBar, KeyCap, OptionCard, NavItem, ScrollFrame
 
 APP_NAME = 'FKey'
-VERSION  = '1.0'
+VERSION  = '1.0.1'
 
 # ─── Chemins ──────────────────────────────────────────────────────────────────
 def _res(r):

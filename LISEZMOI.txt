@@ -1,0 +1,48 @@
+FKEY — Correcteur de texte local
+=================================
+
+FKey corrige, améliore et traduit vos textes dans n'importe quelle application,
+d'une simple touche. Tout se passe sur votre ordinateur : rien n'est envoyé sur
+internet, aucun compte n'est nécessaire.
+
+INSTALLATION (sans droits administrateur)
+-----------------------------------------
+1. Décompressez ce dossier où vous voulez (Documents, clé USB…).
+2. Lancez FKey.exe.
+3. Au premier lancement, un assistant vous propose de télécharger un modèle
+   (≈ 1 à 3,5 Go, une seule fois). Une connexion internet est nécessaire pour
+   cette étape uniquement.
+
+UTILISATION
+-----------
+FKey se place dans la zone de notification (près de l'horloge).
+Sélectionnez un texte dans Word, Outlook, votre navigateur… puis appuyez sur :
+
+   F2   Corriger (orthographe et grammaire)
+   F3   Améliorer (style et fluidité)
+   F4   Traduire (langue réglable)
+   F6   Instruction libre (« Rends ce texte plus formel », « Résume en 3 points »…)
+
+Le texte sélectionné est remplacé par le résultat. Les touches se changent
+dans FKey > Raccourcis.
+
+CONSEILS
+--------
+- Activez « Lancer au démarrage de Windows » (Réglages) pour avoir FKey toujours
+  disponible. Cela n'utilise que le dossier Démarrage de votre session.
+- Le modèle occupe 1 à 3 Go de mémoire vive quand il est chargé. Désactivez
+  « Charger le modèle dès le lancement » si votre ordinateur a peu de mémoire :
+  il sera chargé au premier raccourci (quelques secondes).
+- Sans internet : copiez un fichier .gguf dans le dossier models\ — il apparaît
+  automatiquement dans FKey > Modèle.
+
+DÉPANNAGE
+---------
+- Un raccourci ne répond plus : FKey > Réglages > « Réactiver les raccourcis ».
+- Journal des erreurs : fkey_log.txt (dossier de FKey) et llama\llama_server_log.txt.
+- Pour désinstaller : quittez FKey (menu de la zone de notification), supprimez
+  le dossier. Si le démarrage automatique était activé, supprimez aussi
+  %APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\FKey.vbs.
+
+Moteur : llama.cpp (MIT). Modèles : Gemma 4 (Google, licence Gemma),
+Luth-2 (Kurakura AI, Apache 2.0).

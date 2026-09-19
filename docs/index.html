@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FKey — Corrigez vos textes d'une touche, sans internet</title>
-<meta name="description" content="FKey corrige, améliore et traduit vos textes dans n'importe quelle application Windows, d'une simple touche. Tout se passe sur votre ordinateur.">
+<meta name="description" content="FKey corrige vos textes directement dans vos applications Windows et Mac. L'IA fonctionne localement sur votre ordinateur.">
 <meta property="og:title" content="FKey — Corrigez vos textes d'une touche, sans internet">
 <meta property="og:description" content="Sélectionnez un texte, appuyez sur F2. Corrigé sur place, 100 % local.">
 <meta property="og:image" content="https://knulp222.github.io/fkey/assets/hero.png">
@@ -115,7 +115,7 @@
   .app li::before{content:"";position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:50%;background:var(--accent)}
   .app li b{display:block;color:var(--text);font-weight:600;margin-bottom:2px}
 
-  .download{position:relative;overflow:hidden;background:linear-gradient(135deg,#2F63F0,#5B8CFF);color:#fff;border-radius:20px;padding:40px;display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
+  .download{position:relative;overflow:hidden;background:linear-gradient(135deg,#2F63F0,#5B8CFF);color:#fff;border-radius:20px;padding:40px;margin-top:24px;display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
   .download::after{content:"";position:absolute;right:-80px;top:-80px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.08)}
   @media (max-width:820px){.download{grid-template-columns:1fr;padding:28px 22px}}
   .download h2{color:#fff}
@@ -129,6 +129,13 @@
   .req{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
   .req span{background:rgba(255,255,255,.16);border-radius:999px;padding:4px 11px;font-size:12px}
   .badge{display:inline-block;background:rgba(255,255,255,.22);color:#fff;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;vertical-align:middle;margin-left:8px}
+  .download-options{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .download-option{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px}
+  .download-option h3{margin:0 0 8px;font-size:21px}
+  .download-option p{color:var(--muted);font-size:14px;min-height:65px}
+  .download-option .btn{width:100%;align-items:center;text-align:center}
+  .download-option .meta{font-size:12px;color:var(--muted);margin-top:12px}
+  @media (max-width:700px){.download-options{grid-template-columns:1fr}.download-option p{min-height:0}}
 
   details{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:8px}
   summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center;font-size:15px}
@@ -155,9 +162,9 @@
   <header class="hero">
     <div>
       <h1>Corrigez vos textes <em>d'une touche</em>.<br>Sans internet.</h1>
-      <p>Sélectionnez un texte dans Word, Outlook ou votre navigateur, appuyez sur <kbd>F2</kbd> : il est corrigé sur place. L'IA tourne sur votre ordinateur, rien ne part sur internet.</p>
+      <p>Sélectionnez un texte dans Word, Outlook ou votre navigateur : il est corrigé sur place. L'IA tourne sur votre ordinateur, rien ne part sur internet.</p>
       <a class="btn btn-primary" href="#telecharger">Télécharger pour Windows <small>gratuit · sans installation · sans compte</small></a>
-      <div class="hero-meta">Windows 10 / 11 · 64 bits · aucun droit administrateur</div>
+      <div class="hero-meta"><a href="#telecharger">Également disponible pour Mac avec puce Apple →</a></div>
     </div>
     <div class="hero-art" id="art">
       <picture>
@@ -213,9 +220,25 @@
   </section>
 
   <section id="telecharger" class="reveal">
+    <h2>Choisissez votre version</h2>
+    <p class="lead">FKey fonctionne localement sur Windows et sur Mac. Les raccourcis et le moteur d'IA dépendent de votre système.</p>
+    <div class="download-options">
+      <div class="download-option">
+        <h3>Windows <span class="badge" style="background:var(--accent-soft);color:var(--accent-text)">v1.0.1</span></h3>
+        <p>Version portable. Décompressez, lancez FKey.exe, puis suivez l'assistant pour installer le modèle local.</p>
+        <a class="btn btn-primary" href="https://github.com/knulp222/fkey/releases/latest/download/FKey-portable.zip">Télécharger pour Windows</a>
+        <div class="meta">Windows 10/11 · 64 bits · sans droits administrateur</div>
+      </div>
+      <div class="download-option">
+        <h3>Mac <span class="badge" style="background:var(--accent-soft);color:var(--accent-text)">v1.2 test</span></h3>
+        <p>Version pour Mac avec puce Apple et macOS 26 ou plus récent. Utilise le modèle Apple Intelligence installé sur votre Mac, sans téléchargement de modèle.</p>
+        <a class="btn btn-primary" href="downloads/FKey-Mac-1.2-AppleSilicon-test.dmg" download>Télécharger pour Mac</a>
+        <div class="meta">Glissez FKey dans Applications · autorisez Accessibilité · ⌃⌥K corrige · ⌃⌥G ouvre une instruction</div>
+      </div>
+    </div>
     <div class="download">
       <div>
-        <h2>Télécharger FKey <span class="badge">v1.0.1</span></h2>
+        <h2>Installer sur Windows <span class="badge">v1.0.1</span></h2>
         <p>Archive portable : décompressez, lancez, c'est tout.</p>
         <a class="btn btn-primary" href="https://github.com/knulp222/fkey/releases/latest/download/FKey-portable.zip">⬇ &nbsp;FKey-portable.zip <small>37 Mo · Windows 10/11 64 bits</small></a>
         <div class="req"><span>Sans installation</span><span>Sans droits admin</span><span>8 Go de RAM recommandés</span><span>4 Go de disque</span></div>
@@ -230,14 +253,15 @@
 
   <section id="faq" class="reveal">
     <h2>Questions fréquentes</h2>
-    <details><summary>Quelle configuration faut-il ?</summary><p>Windows 10 ou 11 en 64 bits, 8 Go de mémoire vive recommandés (le modèle en occupe environ 2,7 Go) et 4 Go d'espace disque. Pas de carte graphique nécessaire.</p></details>
+    <details><summary>Quelle configuration faut-il ?</summary><p>Sur Windows : Windows 10 ou 11 en 64 bits, 8 Go de mémoire vive recommandés (le modèle en occupe environ 2,7 Go) et 4 Go d'espace disque. Sur Mac : puce Apple, macOS 26 ou plus récent et Apple Intelligence activé.</p></details>
     <details><summary>Ça marche vraiment sans internet ?</summary><p>Oui. Une connexion n'est nécessaire qu'une fois, pour télécharger le modèle. Ensuite tout fonctionne hors ligne.</p></details>
     <details><summary>Windows affiche un avertissement au lancement</summary><p>FKey n'est pas encore signé numériquement. Cliquez sur « Informations complémentaires » puis « Exécuter quand même ». Le <a href="https://github.com/knulp222/fkey">code source</a> est public.</p></details>
+    <details><summary>macOS bloque l'ouverture de FKey</summary><p>La version Mac de test n'est pas encore signée et notarisée avec un compte Apple Developer. Après avoir glissé FKey dans Applications, essayez de l'ouvrir, puis utilisez « Ouvrir quand même » dans Réglages Système → Confidentialité et sécurité. Autorisez aussi l'accès Accessibilité demandé au premier lancement.</p></details>
     <details><summary>Comment désinstaller ?</summary><p>Quittez FKey depuis la zone de notification et supprimez le dossier. Si le lancement automatique était activé, désactivez-le d'abord dans Réglages.</p></details>
   </section>
 
   <footer>
-    <div>FKey · correcteur de texte local pour Windows</div>
+    <div>FKey · correcteur de texte local pour Windows et Mac</div>
     <div>Moteur llama.cpp · modèles Gemma 4 et Luth-2 · <a href="https://github.com/knulp222/fkey">Code source</a></div>
   </footer>
 </div>

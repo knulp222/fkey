@@ -6,8 +6,8 @@
 <title>FKey — Corrigez vos textes d'une touche, sans internet</title>
 <meta name="description" content="FKey corrige vos textes directement dans vos applications Windows et Mac. L'IA fonctionne localement sur votre ordinateur.">
 <meta property="og:title" content="FKey — Corrigez vos textes d'une touche, sans internet">
-<meta property="og:description" content="Sélectionnez un texte, appuyez sur F2. Corrigé sur place, 100 % local.">
-<meta property="og:image" content="https://knulp222.github.io/fkey/assets/hero.png">
+<meta property="og:description" content="Écrivez, sélectionnez, corrigez. FKey agit dans vos applications, directement sur votre ordinateur.">
+<meta property="og:image" content="https://knulp222.github.io/fkey/assets/logo-512.png">
 <link rel="icon" href="assets/favicon.ico">
 <link rel="apple-touch-icon" href="assets/logo-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,18 +48,26 @@
   .btn-sm{padding:9px 16px;font-size:14px}
 
   /* hero */
-  .hero{display:grid;grid-template-columns:1.05fr 1fr;gap:24px;align-items:center;padding:24px 0 48px}
+  .hero{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;padding:42px 0 78px}
   .hero h1{font-size:clamp(34px,4.6vw,48px);line-height:1.08;letter-spacing:-.02em;margin:0 0 16px;font-weight:800}
   .hero h1 em{font-style:normal;color:var(--accent)}
   .hero p{font-size:18px;color:var(--muted);margin:0 0 24px;max-width:460px}
   .hero-meta{margin-top:12px;font-size:13px;color:var(--faint)}
-  .hero-art{position:relative}
-  .hero-art img{width:100%;animation:float 7s ease-in-out infinite;will-change:transform;
-    -webkit-mask-image:radial-gradient(ellipse 72% 72% at 50% 50%,#000 40%,transparent 100%);
-    mask-image:radial-gradient(ellipse 72% 72% at 50% 50%,#000 40%,transparent 100%)}
-  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-  @media (max-width:820px){.hero{grid-template-columns:1fr;text-align:center}.hero h1 br{display:none}.hero p{margin-inline:auto}.hero-art{order:-1}}
-  @media (prefers-reduced-motion:reduce){.hero-art img,.reveal{animation:none;transition:none}}
+  .hero-art{position:relative;padding:44px 14px 25px}
+  .hero-art::before{content:"";position:absolute;inset:10px 0 0;background:radial-gradient(circle at 45% 45%,#dce9ff,transparent 68%);filter:blur(12px);z-index:-1}
+  .hero-card{background:#fff;border:1px solid #dce4f4;border-radius:18px;box-shadow:0 24px 60px rgba(30,68,142,.16);overflow:hidden;transform:rotate(-2deg)}
+  .hero-card-head{display:flex;align-items:center;justify-content:space-between;padding:14px 17px;background:#f5f8fe;border-bottom:1px solid #e8edf6;color:var(--faint);font-size:12px}
+  .hero-card-head span{display:flex;gap:5px}
+  .hero-card-head i{width:8px;height:8px;border-radius:50%;background:#d2d9e8}
+  .hero-card-body{padding:27px 30px 32px;font-size:16px;line-height:1.65}
+  .hero-card-body p{font-size:16px;margin:0 0 18px;max-width:none}
+  .hero-card-body p:last-child{margin-bottom:0}
+  .hero-before{color:#8f98aa;text-decoration:line-through;text-decoration-color:#e08b99}
+  .hero-after{display:inline-block;background:#eaf7ef;color:#146b3f;border-radius:7px;padding:2px 7px;font-weight:600}
+  .hero-key{position:absolute;right:-8px;top:0;width:93px;height:93px;filter:drop-shadow(0 10px 20px rgba(47,99,240,.2));transform:rotate(10deg)}
+  .hero-chip{position:absolute;left:-18px;bottom:0;background:#fff;border:1px solid #dce4f4;border-radius:999px;padding:9px 14px;box-shadow:0 10px 25px rgba(30,68,142,.13);font-size:13px;font-weight:600;color:#177341}
+  @media (max-width:820px){.hero{grid-template-columns:1fr;text-align:center;gap:10px;padding-top:25px}.hero h1 br{display:none}.hero p{margin-inline:auto}.hero-art{max-width:490px;margin:auto;width:100%}}
+  @media (prefers-reduced-motion:reduce){.reveal{animation:none;transition:none}}
 
   /* apparition au défilement */
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
@@ -107,35 +115,25 @@
   .step h3{margin:0 0 4px;font-size:16px;font-weight:600}
   .step p{margin:0;color:var(--muted);font-size:14px}
 
-  .app{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:center}
-  @media (max-width:820px){.app{grid-template-columns:1fr}}
-  .shot{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:0;box-shadow:0 30px 60px -30px rgba(20,22,28,.25)}
-  .app ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px}
-  .app li{padding-left:18px;position:relative;color:var(--muted);font-size:15px}
-  .app li::before{content:"";position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:50%;background:var(--accent)}
-  .app li b{display:block;color:var(--text);font-weight:600;margin-bottom:2px}
+  .features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .feature{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px}
+  .feature-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:var(--accent-soft);color:var(--accent);font-size:19px;margin-bottom:17px}
+  .feature h3{margin:0 0 5px;font-size:17px}
+  .feature p{margin:0;color:var(--muted);font-size:14px}
+  @media (max-width:820px){.features{grid-template-columns:1fr}}
 
-  .download{position:relative;overflow:hidden;background:linear-gradient(135deg,#2F63F0,#5B8CFF);color:#fff;border-radius:20px;padding:40px;margin-top:24px;display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
-  .download::after{content:"";position:absolute;right:-80px;top:-80px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.08)}
-  @media (max-width:820px){.download{grid-template-columns:1fr;padding:28px 22px}}
-  .download h2{color:#fff}
-  .download p{color:rgba(255,255,255,.85);margin:0 0 20px;font-size:15px}
-  .download .btn-primary{background:#fff;color:var(--accent-text);box-shadow:0 10px 30px rgba(0,0,0,.18)}
-  .download .btn-primary:hover{background:#F3F6FF}
-  .download ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;font-size:15px;position:relative}
-  .download ol li{display:flex;gap:12px;align-items:flex-start;line-height:1.4}
-  .download ol li i{flex:none;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px;font-weight:700;margin-top:1px}
-  .download ol li kbd{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.15);color:#fff}
-  .req{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-  .req span{background:rgba(255,255,255,.16);border-radius:999px;padding:4px 11px;font-size:12px}
-  .badge{display:inline-block;background:rgba(255,255,255,.22);color:#fff;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;vertical-align:middle;margin-left:8px}
+  .download-surface{background:linear-gradient(135deg,#2F63F0,#5284f5);border-radius:22px;padding:32px}
+  .download-surface h2{color:#fff}
+  .download-surface>.lead{color:rgba(255,255,255,.86)}
   .download-options{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-  .download-option{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px}
-  .download-option h3{margin:0 0 8px;font-size:21px}
-  .download-option p{color:var(--muted);font-size:14px;min-height:65px}
-  .download-option .btn{width:100%;align-items:center;text-align:center}
+  .download-option{background:var(--surface);border:1px solid rgba(255,255,255,.75);border-radius:16px;padding:25px;display:flex;flex-direction:column}
+  .download-option h3{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-size:22px}
+  .download-option .version{font-size:12px;font-weight:600;color:var(--accent-text);background:var(--accent-soft);border-radius:999px;padding:3px 9px}
+  .download-option p{color:var(--muted);font-size:14px;margin:0 0 16px}
+  .download-option .btn{width:100%;align-items:center;text-align:center;margin-top:auto}
   .download-option .meta{font-size:12px;color:var(--muted);margin-top:12px}
-  @media (max-width:700px){.download-options{grid-template-columns:1fr}.download-option p{min-height:0}}
+  .download-option ul{margin:0 0 20px;padding-left:19px;color:var(--muted);font-size:13px;line-height:1.7}
+  @media (max-width:700px){.download-options{grid-template-columns:1fr}.download-surface{padding:23px}}
 
   details{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:8px}
   summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center;font-size:15px}
@@ -161,28 +159,34 @@
 
   <header class="hero">
     <div>
-      <h1>Corrigez vos textes <em>d'une touche</em>.<br>Sans internet.</h1>
-      <p>Sélectionnez un texte dans Word, Outlook ou votre navigateur : il est corrigé sur place. L'IA tourne sur votre ordinateur, rien ne part sur internet.</p>
-      <a class="btn btn-primary" href="#telecharger">Télécharger pour Windows <small>gratuit · sans installation · sans compte</small></a>
-      <div class="hero-meta"><a href="#telecharger">Également disponible pour Mac avec puce Apple →</a></div>
+      <h1>Corrigez vos textes <em>d'une touche</em>. <br>Sans internet.</h1>
+      <p>Écrivez dans vos applications habituelles. FKey corrige le texte là où il se trouve, avec une IA qui fonctionne sur votre ordinateur.</p>
+      <a class="btn btn-primary" href="#telecharger">Télécharger FKey <small>Choisissez la version pour votre ordinateur</small></a>
+      <div class="hero-meta">Gratuit · sans compte · vos textes restent sur votre appareil</div>
     </div>
-    <div class="hero-art" id="art">
-      <picture>
-        <source srcset="assets/hero.webp" type="image/webp">
-        <img src="assets/hero.png" alt="FKey relie Word, Outlook, le navigateur et vos documents" width="1200" height="800">
-      </picture>
+    <div class="hero-art" id="art" aria-label="FKey corrige une phrase directement dans un document">
+      <div class="hero-card">
+        <div class="hero-card-head"><span><i></i><i></i><i></i></span>Votre document<span></span></div>
+        <div class="hero-card-body">
+          <p>Bonjour Claire,</p>
+          <p><span class="hero-before">Je vous écrit pour vous informé…</span><br><span class="hero-after">Je vous écris pour vous informer…</span></p>
+          <p>À bientôt,<br>Thomas</p>
+        </div>
+      </div>
+      <img class="hero-key" src="assets/logo-192.png" alt="">
+      <div class="hero-chip">✓ Corrigé sur place</div>
     </div>
   </header>
 
   <section id="essayer" class="reveal">
     <h2>Essayez ici</h2>
-    <p class="lead">Un document avec six fautes. Appuyez sur <kbd>F2</kbd> pour tout corriger — ou sélectionnez d'abord une phrase pour ne corriger que celle-là. C'est exactement ce que fait FKey dans vos applications.</p>
+    <p class="lead">Cliquez sur une action pour voir le résultat. Sélectionnez d'abord une phrase si vous souhaitez ne modifier que ce passage. Cette démonstration montre le principe sans utiliser de modèle d'IA.</p>
     <div class="editor" id="editor">
       <div class="ed-bar"><div class="dots"><i></i><i></i><i></i></div><div class="ed-title">Lettre à Claire — document</div><div style="width:45px"></div></div>
       <div class="ed-tools">
-        <button class="key" data-act="fix"><kbd>F2</kbd>Corriger</button>
-        <button class="key" data-act="improve"><kbd>F3</kbd>Améliorer</button>
-        <button class="key" data-act="translate"><kbd>F4</kbd>Traduire en anglais</button>
+        <button class="key" data-act="fix">Corriger</button>
+        <button class="key" data-act="improve">Améliorer</button>
+        <button class="key" data-act="translate">Traduire en anglais</button>
         <button class="key ghost" data-act="reset">↺ Texte d'origine</button>
       </div>
       <div class="ed-doc" id="doc" tabindex="0" aria-label="Document de démonstration">
@@ -192,83 +196,71 @@
         <p><span class="s" data-i="4"></span></p>
         <div class="pill" id="pill"><img src="assets/logo-192.png" alt=""><span class="spin"></span><span id="pilltxt">FKey corrige…</span></div>
       </div>
-      <div class="ed-hint"><span><b>Astuce</b> — sélectionnez un passage avec la souris, puis F2 : seule la sélection est traitée.</span><span id="status"></span></div>
+      <div class="ed-hint"><span><b>Astuce</b> — sélectionnez un passage avec la souris : seule la sélection est traitée.</span><span id="status"></span></div>
     </div>
   </section>
 
   <section id="comment" class="reveal">
     <h2>Comment ça marche</h2>
-    <p class="lead">FKey attend dans la zone de notification. Il agit là où vous écrivez, dans n'importe quelle application.</p>
+    <p class="lead">FKey reste discret et agit directement dans le champ où vous écrivez.</p>
     <div class="steps">
       <div class="step"><div class="n">1</div><h3>Sélectionnez un texte</h3><p>Un mot, une phrase, un mail entier — dans Word, Outlook, Teams, votre navigateur…</p></div>
-      <div class="step"><div class="n">2</div><h3>Appuyez sur une touche</h3><p><kbd>F2</kbd> corriger · <kbd>F3</kbd> améliorer · <kbd>F4</kbd> traduire · <kbd>F6</kbd> instruction libre.</p></div>
-      <div class="step"><div class="n">3</div><h3>C'est remplacé</h3><p>Le résultat prend la place du texte, en une à quatre secondes. Votre presse-papiers est préservé.</p></div>
+      <div class="step"><div class="n">2</div><h3>Lancez FKey</h3><p>Utilisez le raccourci de correction ou donnez votre propre instruction. Les touches disponibles sont indiquées plus bas pour chaque version.</p></div>
+      <div class="step"><div class="n">3</div><h3>Continuez à écrire</h3><p>Le résultat remplace le texte dans le même champ. Si rien n'est sélectionné, FKey peut corriger tout le champ.</p></div>
     </div>
   </section>
 
   <section id="app" class="reveal">
     <h2>L'application</h2>
-    <p class="lead">Un assistant au premier lancement, des réglages simples, et FKey se fait oublier.</p>
-    <div class="app">
-      <figure class="shot"><img src="assets/shot-home.png" alt="Fenêtre principale de FKey"></figure>
-      <ul>
-        <li><b>Prêt en deux minutes</b>L'assistant télécharge le modèle recommandé (≈ 3 Go, une seule fois).</li>
-        <li><b>Réglable</b>Touches, langue de traduction, modèle, lancement avec Windows.</li>
-        <li><b>100 % privé</b>Pas de compte, pas de serveur. Vos textes ne quittent jamais l'ordinateur ; fonctionne hors ligne.</li>
-      </ul>
+    <p class="lead">L'essentiel à portée de raccourci, sans quitter votre document.</p>
+    <div class="features">
+      <div class="feature"><div class="feature-icon">✦</div><h3>Dans vos applications</h3><p>Corrigez un passage sélectionné ou un champ entier, directement là où vous écrivez.</p></div>
+      <div class="feature"><div class="feature-icon">⌨</div><h3>À votre manière</h3><p>Adaptez les raccourcis et utilisez une instruction libre pour retravailler un texte.</p></div>
+      <div class="feature"><div class="feature-icon">◈</div><h3>Traitement local</h3><p>La correction et la génération se font sur votre ordinateur, sans envoyer vos textes à un service externe.</p></div>
     </div>
   </section>
 
   <section id="telecharger" class="reveal">
-    <h2>Choisissez votre version</h2>
-    <p class="lead">FKey fonctionne localement sur Windows et sur Mac. Les raccourcis et le moteur d'IA dépendent de votre système.</p>
-    <div class="download-options">
-      <div class="download-option">
-        <h3>Windows <span class="badge" style="background:var(--accent-soft);color:var(--accent-text)">v1.0.1</span></h3>
-        <p>Version portable. Décompressez, lancez FKey.exe, puis suivez l'assistant pour installer le modèle local.</p>
-        <a class="btn btn-primary" href="https://github.com/knulp222/fkey/releases/latest/download/FKey-portable.zip">Télécharger pour Windows</a>
-        <div class="meta">Windows 10/11 · 64 bits · sans droits administrateur</div>
+    <div class="download-surface">
+      <h2>Télécharger FKey</h2>
+      <p class="lead">Choisissez la version adaptée à votre ordinateur. Dans les deux cas, vos textes sont traités localement.</p>
+      <div class="download-options">
+        <div class="download-option">
+          <h3>Windows <span class="version">v1.0.1</span></h3>
+          <p>Application portable avec un modèle local à installer au premier lancement.</p>
+          <ul><li>Windows 10 ou 11, 64 bits</li><li>Raccourcis : F2, F3, F4 et F6</li><li>Décompressez l'archive, puis lancez FKey.exe</li></ul>
+          <a class="btn btn-primary" href="https://github.com/knulp222/fkey/releases/latest/download/FKey-portable.zip">Télécharger pour Windows</a>
+          <div class="meta">Un téléchargement initial du modèle est nécessaire.</div>
+        </div>
+        <div class="download-option">
+          <h3>Mac <span class="version">v1.3 test</span></h3>
+          <p>Application utilisant le modèle Apple Intelligence disponible sur votre Mac.</p>
+          <ul><li>Mac avec puce Apple · macOS 26 ou plus récent</li><li>Raccourcis : ⌃⌥K pour corriger, ⌃⌥G pour une instruction</li><li>Glissez FKey dans Applications, puis autorisez Accessibilité</li></ul>
+          <a class="btn btn-primary" href="downloads/FKey-Mac-1.3-AppleSilicon-test.dmg" download>Télécharger pour Mac</a>
+          <div class="meta">Apple Intelligence doit être activé. Version de test non notarisée.</div>
+        </div>
       </div>
-      <div class="download-option">
-        <h3>Mac <span class="badge" style="background:var(--accent-soft);color:var(--accent-text)">v1.3 test</span></h3>
-        <p>Version pour Mac avec puce Apple et macOS 26 ou plus récent. Utilise le modèle Apple Intelligence installé sur votre Mac, sans téléchargement de modèle. Le modèle est préparé à l'avance pour réduire l'attente.</p>
-        <a class="btn btn-primary" href="downloads/FKey-Mac-1.3-AppleSilicon-test.dmg" download>Télécharger pour Mac</a>
-        <div class="meta">Glissez FKey dans Applications · autorisez Accessibilité · ⌃⌥K corrige · ⌃⌥G ouvre une instruction</div>
-      </div>
-    </div>
-    <div class="download">
-      <div>
-        <h2>Installer sur Windows <span class="badge">v1.0.1</span></h2>
-        <p>Archive portable : décompressez, lancez, c'est tout.</p>
-        <a class="btn btn-primary" href="https://github.com/knulp222/fkey/releases/latest/download/FKey-portable.zip">⬇ &nbsp;FKey-portable.zip <small>37 Mo · Windows 10/11 64 bits</small></a>
-        <div class="req"><span>Sans installation</span><span>Sans droits admin</span><span>8 Go de RAM recommandés</span><span>4 Go de disque</span></div>
-      </div>
-      <ol>
-        <li><i>1</i><span>Décompressez le dossier où vous voulez.</span></li>
-        <li><i>2</i><span>Lancez FKey.exe et suivez l'assistant.</span></li>
-        <li><i>3</i><span>Sélectionnez un texte, appuyez sur <kbd>F2</kbd>.</span></li>
-      </ol>
     </div>
   </section>
 
   <section id="faq" class="reveal">
     <h2>Questions fréquentes</h2>
     <details><summary>Quelle configuration faut-il ?</summary><p>Sur Windows : Windows 10 ou 11 en 64 bits, 8 Go de mémoire vive recommandés (le modèle en occupe environ 2,7 Go) et 4 Go d'espace disque. Sur Mac : puce Apple, macOS 26 ou plus récent et Apple Intelligence activé.</p></details>
-    <details><summary>Ça marche vraiment sans internet ?</summary><p>Oui. Une connexion n'est nécessaire qu'une fois, pour télécharger le modèle. Ensuite tout fonctionne hors ligne.</p></details>
-    <details><summary>Windows affiche un avertissement au lancement</summary><p>FKey n'est pas encore signé numériquement. Cliquez sur « Informations complémentaires » puis « Exécuter quand même ». Le <a href="https://github.com/knulp222/fkey">code source</a> est public.</p></details>
+    <details><summary>Ça marche vraiment sans internet ?</summary><p>Oui, une fois le modèle prêt sur votre ordinateur. Sur Windows, FKey le télécharge au premier lancement. Sur Mac, activez Apple Intelligence dans les réglages du système. La correction et la génération n'envoient ensuite pas vos textes à un serveur.</p></details>
+    <details><summary>Windows affiche un avertissement au lancement</summary><p>FKey n'est pas encore signé numériquement. Cliquez sur « Informations complémentaires » puis « Exécuter quand même ». Le <a href="https://github.com/knulp222/fkey">projet GitHub</a> est public.</p></details>
     <details><summary>macOS bloque l'ouverture de FKey</summary><p>La version Mac de test n'est pas encore signée et notarisée avec un compte Apple Developer. Après avoir glissé FKey dans Applications, essayez de l'ouvrir, puis utilisez « Ouvrir quand même » dans Réglages Système → Confidentialité et sécurité. Autorisez aussi l'accès Accessibilité demandé au premier lancement.</p></details>
-    <details><summary>Comment désinstaller ?</summary><p>Quittez FKey depuis la zone de notification et supprimez le dossier. Si le lancement automatique était activé, désactivez-le d'abord dans Réglages.</p></details>
+    <details><summary>Comment désinstaller ?</summary><p>Quittez FKey, puis supprimez l'application. Sur Windows, supprimez le dossier décompressé ; sur Mac, retirez FKey d'Applications. Si le démarrage automatique était activé, désactivez-le d'abord dans les réglages de FKey.</p></details>
   </section>
 
   <footer>
     <div>FKey · correcteur de texte local pour Windows et Mac</div>
-    <div>Moteur llama.cpp · modèles Gemma 4 et Luth-2 · <a href="https://github.com/knulp222/fkey">Code source</a></div>
+    <div>IA locale · <a href="https://github.com/knulp222/fkey">Projet GitHub</a></div>
   </footer>
 </div>
 
 <script>
 (function(){
-  /* ── Démo : résultats réels produits par FKey (modèle Gemma 4 E2B), rejoués ici ── */
+  /* ── Démonstration statique des actions : aucun modèle n'est exécuté sur cette page. ── */
   var S = [
     {o:"Bonjour Claire,", fix:"Bonjour Claire,", imp:"Bonjour Claire,", en:"Hello Claire,"},
     {o:"Je vous écrit pour vous informé que la réunion de jeudi est reporter à la semaine prochaine.",
@@ -319,7 +311,7 @@
   }
 
   var labels = {fix:'FKey corrige…', improve:'FKey améliore…', translate:'FKey traduit…'};
-  var keyOf  = {fix:'F2', improve:'F3', translate:'F4'};
+  var actionName = {fix:'Correction', improve:'Amélioration', translate:'Traduction'};
   function act(kind){
     if (busy) return;
     if (kind==='reset'){ cur = S.map(function(s){return s.o;}); spans.forEach(function(_, i){ render(i); }); status.textContent=''; return; }
@@ -336,18 +328,10 @@
         spans[i].classList.remove('busy');
       });
       pill.classList.remove('show'); busy = false;
-      status.textContent = keyOf[kind] + ' · ' + (t.partial ? 'sélection' : 'tout le document') + ' · ' + (changed ? changed+' phrase'+(changed>1?'s':'')+' modifiée'+(changed>1?'s':'') : 'rien à changer') + ' · 1,2 s';
+      status.textContent = actionName[kind] + ' · ' + (t.partial ? 'sélection' : 'tout le document') + ' · ' + (changed ? changed+' phrase'+(changed>1?'s':'')+' modifiée'+(changed>1?'s':'') : 'rien à changer');
     }, 900);
   }
   document.querySelectorAll('.ed-tools .key').forEach(function(b){ b.addEventListener('click', function(){ act(b.dataset.act); }); });
-  /* les vraies touches fonctionnent aussi quand la démo a le focus ou une sélection */
-  document.addEventListener('keydown', function(e){
-    var map = {F2:'fix', F3:'improve', F4:'translate'};
-    if (!map[e.key]) return;
-    var sel = window.getSelection(), inDoc = doc.contains(document.activeElement) || (sel && sel.anchorNode && doc.contains(sel.anchorNode));
-    if (!inDoc) return;
-    e.preventDefault(); act(map[e.key]);
-  });
   doc.addEventListener('mouseup', function(){ doc.focus({preventScroll:true}); });
 
   /* ── apparition au défilement + léger parallaxe du visuel ── */
